@@ -1,13 +1,14 @@
-import type { Config } from "tailwindcss"
+import { color } from "framer-motion";
+import type { Config } from "tailwindcss";
 
 const config = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-	],
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
@@ -63,6 +64,22 @@ const config = {
           from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },
         },
+        hoverEffect: {
+          "0%": {
+            transform: "rotate(0deg) ",
+            boxShadow: "0 0 0 rgba(0, 0, 0, 0)",
+          },
+          "25%": {
+            color: "yellow",
+          },
+          "50%": {
+            color: "blue",
+          },
+          "100%": {
+            transform: "rotate(360deg)",
+            boxShadow: "10px 10px 15px rgba(0, 0, 0, 0.2)",
+          },
+        },
         "accordion-up": {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
@@ -71,10 +88,11 @@ const config = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        hoverEffect: "hoverEffect 0.3s ease-in-out forwards",
       },
     },
   },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config
+} satisfies Config;
 
-export default config
+export default config;
