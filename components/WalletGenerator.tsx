@@ -201,7 +201,7 @@ const WalletGenerator = () => {
     );
     if (wallet) {
       const updatedWallets = [...wallets, wallet];
-      const updatedPathType = [pathTypes, pathTypes];
+      const updatedPathType = [...pathTypes, pathTypes[0]];
       setWallets(updatedWallets);
       localStorage.setItem("wallets", JSON.stringify(updatedWallets));
       localStorage.setItem("pathTypes", JSON.stringify(updatedPathType));
