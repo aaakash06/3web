@@ -67,7 +67,7 @@ const config = {
         hoverEffect: {
           "0%": {
             transform: "rotate(0deg) ",
-            boxShadow: "0 0 0 rgba(0, 0, 0, 0)",
+            // boxShadow: "0 0 0 rgba(0, 0, 0, 0)",
           },
           "25%": {
             color: "yellow",
@@ -77,7 +77,7 @@ const config = {
           },
           "100%": {
             transform: "rotate(360deg)",
-            boxShadow: "10px 10px 15px rgba(0, 0, 0, 0.2)",
+            // boxShadow: "10px 10px 15px rgba(0, 0, 0, 0.2)",
           },
         },
         "accordion-up": {
