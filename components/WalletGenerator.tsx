@@ -60,31 +60,33 @@ const WalletGenerator = () => {
   useEffect(() => {
     const storedWallets = localStorage.getItem("wallets");
     const storedMnemonic = localStorage.getItem("mnemonics");
-    const storedPathTypes = localStorage.getItem("paths");
+    const storedPathTypes = localStorage.getItem("pathTypes");
 
     if (storedWallets && storedMnemonic && storedPathTypes) {
       setMnemonicWords(JSON.parse(storedMnemonic));
       setWallets(JSON.parse(storedWallets));
       setPathTypes(JSON.parse(storedPathTypes));
       setVisiblePrivateKeys(JSON.parse(storedWallets).map(() => false));
-      setVisiblePhrases(JSON.parse(storedWallets).map(() => false));
+      // setVisiblePhrases(JSON.parse(storedWallets).map(() => false));
     }
   }, []);
 
   const handleDeleteWallet = (index: number) => {
-    setWallets((prev) => [...prev].filter((_, i) => i !== index));
-    setPathTypes((prev) => [...prev].filter((_, i) => i !== index));
-    localStorage.setItem("wallets", JSON.stringify(wallets));
-    localStorage.setItem("paths", JSON.stringify(pathTypes));
+    const updatedWallets = [...wallets].filter((_, i) => i !== index);
+    const updatedPaths = [...pathTypes].filter((_, i) => i !== index);
+    setWallets(updatedWallets);
+    setPathTypes(updatedPaths);
+    localStorage.setItem("wallets", JSON.stringify(updatedWallets));
+    localStorage.setItem("pathTypes", JSON.stringify(updatedPaths));
     setVisiblePrivateKeys((prev) => [...prev].filter((_, i) => i !== index));
-    setVisiblePhrases((prev) => [...prev].filter((_, i) => i !== index));
+    // setVisiblePhrases((prev) => [...prev].filter((_, i) => i !== index));
     toast.success("Wallet deleted successfully!");
   };
 
   const handleClearWallets = () => {
     localStorage.removeItem("wallets");
     localStorage.removeItem("mnemonics");
-    localStorage.removeItem("paths");
+    localStorage.removeItem("pathTypes");
     setWallets([]);
     setMnemonicWords([]);
     setPathTypes([]);
@@ -99,14 +101,14 @@ const WalletGenerator = () => {
   };
 
   const togglePrivateKeyVisibility = (index: number) => {
-    setVisiblePrivateKeys(
-      visiblePrivateKeys.map((visible, i) => (i === index ? !visible : visible))
+    setVisiblePrivateKeys((prev) =>
+      [...prev].map((visible, i) => (i === index ? !visible : visible))
     );
   };
 
   const togglePhraseVisibility = (index: number) => {
-    setVisiblePhrases(
-      visiblePhrases.map((visible, i) => (i === index ? !visible : visible))
+    setVisiblePhrases((prev) =>
+      [...prev].map((visible, i) => (i === index ? !visible : visible))
     );
   };
 
@@ -179,9 +181,9 @@ const WalletGenerator = () => {
       setWallets(updatedWallets);
       localStorage.setItem("wallets", JSON.stringify(updatedWallets));
       localStorage.setItem("mnemonics", JSON.stringify(words));
-      localStorage.setItem("paths", JSON.stringify(pathTypes));
-      setVisiblePrivateKeys([...visiblePrivateKeys, false]);
-      setVisiblePhrases([...visiblePhrases, false]);
+      localStorage.setItem("pathTypes", JSON.stringify(pathTypes));
+      setVisiblePrivateKeys((prev) => [...prev, false]);
+      // setVisiblePhrases([...visiblePhrases, false]);
       toast.success("Wallet generated successfully!");
     }
   };
@@ -204,7 +206,7 @@ const WalletGenerator = () => {
       localStorage.setItem("wallets", JSON.stringify(updatedWallets));
       localStorage.setItem("pathTypes", JSON.stringify(updatedPathType));
       setVisiblePrivateKeys([...visiblePrivateKeys, false]);
-      setVisiblePhrases([...visiblePhrases, false]);
+      // setVisiblePhrases([...visiblePhrases, false]);
       toast.success("Wallet generated successfully!");
     }
   };
