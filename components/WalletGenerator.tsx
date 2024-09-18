@@ -7,7 +7,7 @@ import { generateMnemonic, mnemonicToSeedSync, validateMnemonic } from "bip39";
 import { derivePath } from "ed25519-hd-key";
 import { Keypair } from "@solana/web3.js";
 import { Input } from "./ui/input";
-import { motion } from "framer-motion";
+import { easeIn, easeInOut, motion } from "framer-motion";
 import bs58 from "bs58";
 import { ethers } from "ethers";
 import {
@@ -53,6 +53,22 @@ const WalletGenerator = () => {
   const pathTypeNames: { [key: string]: string } = {
     "501": "Solana",
     "60": "Ethereum",
+  };
+
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        delayChildren: 0.3,
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const item = {
+    hidden: { opacity: 0 },
+    show: { opacity: 1 },
   };
 
   const pathTypeName = pathTypeNames[pathTypes[0]] || "";
@@ -344,21 +360,19 @@ const WalletGenerator = () => {
               onClick={() => copyToClipboard(mnemonicWords.join(" "))}
             >
               <motion.div
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.3,
-                  ease: "easeInOut",
-                }}
+                variants={container}
+                initial="hidden"
+                animate="show"
                 className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 justify-center w-full items-center mx-auto my-8"
               >
                 {mnemonicWords.map((word, index) => (
-                  <p
+                  <motion.p
+                    variants={item}
                     key={index}
                     className="md:text-lg bg-foreground/5 hover:bg-foreground/10 transition-all duration-300 rounded-lg p-4"
                   >
                     {word}
-                  </p>
+                  </motion.p>
                 ))}
               </motion.div>
               <div className="text-sm md:text-base text-primary/50 flex w-full gap-2 items-center group-hover:text-primary/80 transition-all duration-300">
