@@ -193,7 +193,7 @@ const WalletGenerator = () => {
       wallets.length
     );
     if (wallet) {
-      const updatedWallets = [...wallets, wallet];
+      const updatedWallets = [wallet];
       setWallets(updatedWallets);
       localStorage.setItem("wallets", JSON.stringify(updatedWallets));
       localStorage.setItem("mnemonics", JSON.stringify(words));
@@ -219,6 +219,7 @@ const WalletGenerator = () => {
       const updatedWallets = [...wallets, wallet];
       const updatedPathType = [...pathTypes, pathTypes[0]];
       setWallets(updatedWallets);
+      setPathTypes(updatedPathType);
       localStorage.setItem("wallets", JSON.stringify(updatedWallets));
       localStorage.setItem("pathTypes", JSON.stringify(updatedPathType));
       setVisiblePrivateKeys([...visiblePrivateKeys, false]);
